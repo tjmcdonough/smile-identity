@@ -1,0 +1,14 @@
+{
+  "name": "smile-identity",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "weweb build",
+    "serve": "weweb serve"
+  },
+  "devDependencies": {
+    "@weweb/cli": "latest"
+  },
+  "dependencies": {
+    "@smile_identity/smart-camera-web": "^1.0.0-beta.8"
+  }
+}
