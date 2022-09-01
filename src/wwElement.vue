@@ -10,57 +10,63 @@
 
   export default {
     data: () => ({
-      //......data of component
+      //......data of your component
     }),
     mounted() {
+
       const app = document.querySelector('smart-camera-web');
 
-  const postContent = async (data) => {
+      const postContent = async (data) => {
 
-    // Send images to endpoint from data object
+      const images = data.images.map(function(item) {
+        return item['image'];
+      });
 
-    const imagesToSend = [
-      //data.images[i].image
-    ]
+      const imageArray = {
+        "images": images
+      }
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer {GET_ACCESS_TOKEN_FROM_WEWEB}',
-      },
-      body: JSON.stringify(imagesToSend)
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          // Need to add authorization header here   
+        },
+        body: JSON.stringify(imageArray)
+      };
+
+      try {
+        const response = await fetch('https://backend.bnkability.com/api/v1/account/selfies', options);
+
+        if(response.status == 200 || response.status == 201)
+        {
+          console.log('selfies sent successfully');
+
+          // Need to return a property here so we know it is successful
+
+          const json = await response.json();
+          
+          return json;
+        }
+      } catch (e) {
+        console.log('error: selfies sent unsuccessfully');
+      }
     };
 
-    try {
-      const response = await fetch('https://backend.bnkability.com/api/v1/account/selfies', options);
-
-      if(response.status == 200 || response.status == 201)
-      {
-        console.log('selfies sent successfully');
-        const json = await response.json();
-        
-        return json;
-      }
-    } catch (e) {
-      console.log('error: selfies sent unsuccessfully');
-    }
-  };
-
-  app.addEventListener('imagesComputed', async (e) => {
+    app.addEventListener('imagesComputed', async (e) => {
 
     try {
       const response = await postContent(e.detail);
 
       console.log(response);
-    } catch (e) {
-      console.error(e);
-    }
-  });
+      } catch (e) {
+        console.error(e);
+      }
+    });
 
     },
     methods: {
-      //......methods of component
+      //......methods of your component
     }
   }
   
