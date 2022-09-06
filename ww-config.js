@@ -1,16 +1,16 @@
 export default {
   editor: {
     label: {
-      en: "My Element",
+      en: "Smile identity",
     },
   },
   properties: {
-    textColor: {
+    accessToken: {
       label: {
-        en: "Text color",
+        en: "Access token",
       },
-      type: "Color",
-      defaultValue: "#F23636",
+      type: "Text",
+      bindable: true,
     },
   },
 };

@@ -30,12 +30,14 @@
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          // Need to add authorization header here   
+          // Need to add authorization header here
+          'Authorization': 'Bearer ' + this.content.accessToken
         },
         body: JSON.stringify(imageArray)
       };
 
       try {
+        // Should be able to get base uri `https://backend.bnkability.com/api/v1` from we web variables 
         const response = await fetch('https://backend.bnkability.com/api/v1/account/selfies', options);
 
         if(response.status == 200 || response.status == 201)
