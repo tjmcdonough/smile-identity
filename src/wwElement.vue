@@ -29,14 +29,13 @@
       const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
           // Need to add authorization header here
           'Authorization': 'Bearer ' + this.content.accessToken
         },
         body: JSON.stringify(imageArray)
       };
 
-      try {
         // Should be able to get base uri `https://backend.bnkability.com/api/v1` from we web variables 
         const response = await fetch('https://backend.bnkability.com/api/v1/account/selfies', options);
 
@@ -50,20 +49,17 @@
           
           return json;
         }
-      } catch (e) {
-        console.log('error: selfies sent unsuccessfully');
-      }
+        else {
+          console.log('error: selfies sent unsuccessfully');
+        }
     };
 
     app.addEventListener('imagesComputed', async (e) => {
 
-    try {
-      const response = await postContent(e.detail);
+    const response = await postContent(e.detail);
 
-      console.log(response);
-      } catch (e) {
-        console.error(e);
-      }
+    console.log(response);
+     
     });
 
     },
